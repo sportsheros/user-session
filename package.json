@@ -1,0 +1,39 @@
+{
+  "name": "node_first_app",
+  "version": "1.0.0",
+  "description": "first_tutorial",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "_moduleAliases": {
+    "@root": ".",
+    "@controllers": "./controllers",
+    "@models": "./models",
+    "@service": "./service",
+    "@validation": "./validation",
+    "@routes": "./routes",
+    "@config": "./config",
+    "@constants": "./constants",
+    "@middleware": "./middleware"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "connect-mongo": "^3.2.0",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "express-validator": "^6.14.2",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "module-alias": "^2.2.2",
+    "mongodb": "^4.6.0",
+    "mongoose": "^6.3.4"
+  }
+}

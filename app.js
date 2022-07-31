@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 require("module-alias/register");
 const dotenv = require('dotenv');
 const path = require("path");
-const ejs = require("ejs");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const indexRoute = require("@routes/index");
@@ -31,13 +30,8 @@ app.get('/', (req, res) => {
     .send('Hello, world!')
     .end();
 });
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
-
 app.use(bodyParser.json({ limit: "50mb" }));
 
-app.use(express.static("public"));
-app.set("view engine", "ejs");
 
 // define a simple route
 app.get("/api", (req, res) => {

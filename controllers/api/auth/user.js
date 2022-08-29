@@ -3,7 +3,6 @@ const Crypto = require("crypto-js");
 const ObjectId = Mongoose.Types.ObjectId;
 const jwt = require("jsonwebtoken");
 const Users = require("@models/users/users");
-const Products = require("@models/products/products");
 const Responder = require('@service/responder')
 const _ = require('lodash');
 
@@ -16,7 +15,7 @@ return Crypto.HmacSHA256(
 }
 function generateToken(payload){
   let user = {
-    userName: payload.userName,
+    email: payload.email,
     userType: payload.userType,
     id: payload._id,
   };
@@ -34,12 +33,12 @@ module.exports = {
 
   async userRegister(req, res) {
     try {  
-     const {userName,password,userType} = req.body;  
+     const {email,password,name,mobile} = req.body;  
      let result;
-     result = await Users.findOne({userName});
-     if(!_.isEmpty(result)) return Responder.respondWithError(req, res, `userName Already exists`);
+     result = await Users.findOne({email});
+     if(!_.isEmpty(result)) return Responder.respondWithError(req, res, `email Already exists`);
       let hashPassword = await hashCode(password);
-      result = await new Users({userName,userType,password:hashPassword}).save();
+      result = await new Users({email,mobile,name,password:hashPassword}).save();
       if(result){
         result.token = await generateToken(result);
        await result.save();
@@ -57,9 +56,9 @@ module.exports = {
  * */
   async userLogin(req, res) {
     try {    
-    const {userName,password}= req.body;
+    const {email,password}= req.body;
     let condition = {
-      userName,
+      email,
     };
     if (!process.env.JWT_SECRET_KEY || !process.env.SALT) return Responder.respondWithError(req, res, `Selt and key not found`);
     let userExist = await Users.findOne(condition);
@@ -74,23 +73,5 @@ module.exports = {
       return Responder.respondWithError(req, res, error);
     }
   },
-  /* *
- * @api {post} api/auth/add_Product
- * @apiDescription api  is Used to Add Product
- * */
-  async AddProduct(req, res) {
-    try {  
-     const {name,price} = req.body;  
-     let result;
-     result = await Products.findOne({name});
-     if(!_.isEmpty(result)) return Responder.respondWithError(req, res, `Product Already exists`);
-      result = await new Products(req.body).save();
-      return Responder.respondWithSuccess(req, res, result, 'Data Submited successfully');
-     
-    }
-    catch (error) {
-      return Responder.respondWithError(req, res, error);
-    }
-  }
- 
+    
   };

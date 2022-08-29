@@ -1,7 +1,8 @@
 module.exports = { 
-  USER_TYPE:{
-    BUYERS:'buyer',
-    SELLERS:'seller'    
+  PRIORITY:{
+    LOW:'low',
+    MeDIUM:'medium',  
+    HIGH:'high'    
   }
 
 }

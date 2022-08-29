@@ -3,13 +3,10 @@ const Schema = mongoose.Schema;
 const Constants = require('@constants/index');
 let Userschema = new mongoose.Schema(
   {
-   userName: { type: String, require: true },
-   userType: {
-    type: String,    
-    enum:  Object.values(Constants.USER_TYPE),
-    require: true
-  },
+  email: { type: String, require: true },
+  name:{ type: String },
   password: { type: String, require: true },
+  mobile:{type:String},
   token: { type: String },
   },
   {

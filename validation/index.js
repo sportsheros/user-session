@@ -4,36 +4,23 @@ module.exports = {
 
   registration() {
     return [
-      ValidationRule.isEmail('userName'),
+      ValidationRule.isEmail('email'),
       ValidationRule.isPassword('password'),
-      ValidationRule.required('userType')
+      ValidationRule.required('mobile'),
+      ValidationRule.isStringOptionalNotEmpty('name')
     ]
   },
 
   login() {
     return [
-      ValidationRule.isEmail('userName'),
+      ValidationRule.isEmail('email'),
       ValidationRule.isPassword('password'),
     ]
   },
-  AddProducts() {
+ 
+  todoValidation(){
     return [
-      ValidationRule.isStringNotEmpty('name'),
-      ValidationRule.isNumber('price'),
+      ValidationRule.requiredArrayWithLength('tasks',1),
     ]
-  },
-  
-  AddCatalogs() {
-    return [
-      ValidationRule.isStringNotEmpty('name'),
-      ValidationRule.requiredArrayWithLength('items',1)
-    ]
-  },
-
-  CreateOrder() {
-    return [
-      ValidationRule.requiredArrayWithLength('items',1)
-    ]
-  },
-
+  }
 }

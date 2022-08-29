@@ -21,10 +21,10 @@ module.exports = async (req, res, next) => {
   try {
     //if can verify the token, set req.user and pass to next middleware
     const decoded = JWT.verify(token, secretKey=process.env.JWT_SECRET_KEY);
-    req.buyer = decoded;
+    req.user = decoded;
     // , deviceId: req.body.deviceId
-    const user = await User.findOne({ _id: req.buyer.id, token: token,userType:Constants.USER_TYPE.BUYERS })
-    if (!user) {
+    const users = await User.findOne({ _id: req.user.id, token: token })
+    if (!users) {
       // throw new Error()
       return res.status(401).json({
         status: false,

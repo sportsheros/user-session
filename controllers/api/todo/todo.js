@@ -38,7 +38,7 @@ module.exports = {
 
   async GetTodoLists(req, res) {
     try {   
-      let result = await TodoTask.find({userId: req.user._id,isActive:true});
+      let result = await TodoTask.findOne({userId: req.user.id,isActive:true});
       return Responder.respondWithSuccess(req, res, result, 'orders fetch successfully'); 
     }
     catch (error) {
@@ -53,7 +53,7 @@ module.exports = {
 
    async RemoveTodo(req, res) {
     try {   
-      let result = await TodoTask.find({userId: req.user._id,isActive:true});
+      let result = await TodoTask.findOne({userId: req.user.id,isActive:true});
       if(!result) return Responder.respondWithCustomError(req, res, 'No todo found !',{});
       result.isActive = false;
       await result.save();
@@ -79,7 +79,7 @@ module.exports = {
           })
           if (errs.length) throw new Error("tittle required !");
 
-    let result = await TodoTask.findOne({userId,isActive:true}).save();
+    let result = await TodoTask.findOne({userId,isActive:true});
     if(!result) return Responder.respondWithCustomError(req, res,'No todo found !!',{});  
     result.tasks=todo;
     await result.save();
